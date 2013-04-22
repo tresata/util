@@ -5,7 +5,7 @@ object Util extends Build {
   val zkVersion = "3.3.4"
 
   val sharedSettings = Seq(
-    version := "6.3.0-tres1",
+    version := "6.3.0",
     organization := "com.twitter",
     crossScalaVersions := Seq("2.9.2", "2.10.0"),
     // Workaround for a scaladoc bug which causes it to choke on
@@ -122,6 +122,7 @@ object Util extends Build {
       sharedSettings
   ).settings(
     name := "util-eval",
+    version := "6.3.0-tres1",
     libraryDependencies <+= scalaVersion { "org.scala-lang" % "scala-compiler" % _ % "compile" }
   ).dependsOn(utilCore)
 
