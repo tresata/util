@@ -5,7 +5,7 @@ object Util extends Build {
   val zkVersion = "3.3.4"
 
   val sharedSettings = Seq(
-    version := "6.3.0",
+    version := "6.3.0-tres1",
     organization := "com.twitter",
     crossScalaVersions := Seq("2.9.2", "2.10.0"),
     // Workaround for a scaladoc bug which causes it to choke on
@@ -63,13 +63,17 @@ object Util extends Build {
           <url>https://www.twitter.com/</url>
         </developer>
       </developers>),
+    
     publishTo <<= version { (v: String) =>
-      val nexus = "https://oss.sonatype.org/"
+      val tresata = "http://server01:8080/archiva/repository/"
       if (v.trim.endsWith("SNAPSHOT"))
-        Some("snapshots" at nexus + "content/repositories/snapshots")
+        Some("tresata-snapshots" at tresata + "snapshots")
       else
-        Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-    }
+        Some("tresata-releases"  at tresata + "internal")
+    },
+
+    credentials += Credentials(Path.userHome / ".m2" / "credentials_internal"),
+    credentials += Credentials(Path.userHome / ".m2" / "credentials_snapshots")
   )
 
   val jmockSettings = Seq(
